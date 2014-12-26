@@ -491,7 +491,7 @@ end
 
 class WhitelistedParamsAction
   class Params < Lotus::Action::Params
-    param :id
+    param :id, Integer
   end
 
   include Lotus::Action
@@ -506,7 +506,7 @@ class WhitelistedDslAction
   include Lotus::Action
 
   params do
-    param :username
+    param :username, String
   end
 
   def call(params)
@@ -518,7 +518,7 @@ class ParamsValidationAction
   include Lotus::Action
 
   params do
-    param :email, type: String, presence: true
+    param :email, String, presence: true
   end
 
   def call(params)
@@ -808,7 +808,7 @@ module FullStack
         include FullStack::Action
 
         params do
-          param :title, type: String, presence: true
+          param :title, String, presence: true
         end
 
         def call(params)

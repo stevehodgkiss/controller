@@ -155,9 +155,9 @@ class Signup
   include Lotus::Action
 
   params do
-    param :first_name
-    param :last_name
-    param :email
+    param :first_name, String
+    param :last_name, String
+    param :email, String
   end
 
   def call(params)
@@ -178,8 +178,6 @@ Because params are a well defined set of data required to fulfill a feature
 in your application, you can validate them. So you can avoid hitting lower MVC layers
 when params are invalid.
 
-If you specify the `:type` option, the param will be coerced.
-
 ```ruby
 require 'lotus/controller'
 
@@ -188,13 +186,13 @@ class Signup
   include Lotus::Action
 
   params do
-    param :first_name,       presence: true
-    param :last_name,        presence: true
-    param :email,            presence: true, format: /@/,   confirmation: true
-    param :password,         presence: true,                confirmation: true
-    param :terms_of_service, acceptance: true
-    param :avatar,           size: 0..(MEGABYTE * 3)
-    param :age,              type: Integer, size: 18..99
+    param :first_name,       String, presence: true
+    param :last_name,        String, presence: true
+    param :email,            String, presence: true, format: /@/,   confirmation: true
+    param :password,         String, presence: true,                confirmation: true
+    param :terms_of_service, String, acceptance: true
+    param :avatar,           String, size: 0..(MEGABYTE * 3)
+    param :age,              Integer, size: 18..99
   end
 
   def call(params)

@@ -13,8 +13,8 @@ describe Lotus::Action::Params do
     end
 
     it 'accepts both string and symbols as names' do
-      @params.param :id
-      @params.param 'first_name'
+      @params.param :id, Integer
+      @params.param 'first_name', String
 
       @params.__send__(:attributes).instance_variable_get(:@attributes).keys.must_equal([:id, :first_name])
     end
@@ -70,7 +70,7 @@ describe Lotus::Action::Params do
         describe "in a Rack context" do
           it 'returns only the listed params' do
             response = Rack::MockRequest.new(@action).request('PATCH', "?id=23", params: { x: { foo: 'bar' } })
-            response.body.must_match %({:id=>"23"})
+            response.body.must_match %({:id=>23})
           end
         end
 
@@ -122,9 +122,9 @@ describe Lotus::Action::Params do
   describe 'validations' do
     before do
       TestParams = Class.new(Lotus::Action::Params) do
-        param :email, presence:   true, format: /\A.+@.+\z/
-        param :name,  presence:   true
-        param :tos,   acceptance: true
+        param :email, String, presence:   true, format: /\A.+@.+\z/
+        param :name,  String, presence:   true
+        param :tos,   String, acceptance: true
       end
     end
 
